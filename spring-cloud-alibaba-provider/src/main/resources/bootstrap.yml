@@ -1,0 +1,29 @@
+# 首先在你的IDE中配置环境变量，指向到nacos server
+# 在nacos server新增配置，Data ID命名格式：
+# {spring.application.name}-{spring.profiles.active}.{file-extension}
+
+# 不同环境的公共配置
+server:
+  port: ${ENV_SERVER_PORT:8080}
+spring:
+  application:
+    name: spring-cloud-alibaba-provider
+  jackson:
+    default-property-inclusion: NON_NULL
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: true
+  profiles:
+    active: ${ENV_PROFILES_ACTIVE:dev}
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${ENV_NACOS_DISCOVERY_SERVER:192.168.253.129:8848}
+      config:
+        server-addr: ${ENV_NACOS_CONFIG_SERVER:192.168.253.129:8848}
+        file-extension: yml
+
+spring-cloud-alibaba-provider:
+  ribbon:
+    OkToRetryOnAllOperations: true
+    MaxAutoRetriesNextServer: 1
+    retryableStatusCodes: 500

@@ -1,0 +1,29 @@
+server:
+  port: ${ENV_SERVER_PORT:8081}
+spring:
+  application:
+    name: spring-cloud-alibaba-sentinel
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: true
+  #    date-format: yyyy-MM-dd HH:mm:ss
+  profiles:
+    active: ${ENV_PROFILES_ACTIVE:dev}
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${ENV_NACOS_DISCOVERY_SERVER:192.168.253.129:8848}
+      config:
+        server-addr: ${ENV_NACOS_CONFIG_SERVER:192.168.253.129:8848}
+        file-extension: yml
+    sentinel:
+      transport:
+        dashboard: 'localhost:8080'
+        port: 8079
+      datasource:
+        testnacos:
+          nacos:
+            serverAddr: 192.168.253.129:8848
+            dataId: spring-cloud-alibaba-sentinel-flow-rules
+            groupId: SENTINEL_GROUP
+            ruleType: FLOW
